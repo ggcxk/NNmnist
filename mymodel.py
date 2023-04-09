@@ -23,7 +23,7 @@ def cross_entropy_error(p, y):
 
     
 class TwoLayerNN:
-    def __init__(self, lrate, lr_decay, hidden_size, l2, input_size=784, output_size=10):
+    def __init__(self, lrate, hidden_size, l2, input_size=784, output_size=10):
         # 初始化权重
         self.W1 = np.random.normal(0, np.sqrt(2/input_size), (input_size, hidden_size))
         self.W2 = np.random.normal(0, np.sqrt(2/hidden_size), (hidden_size, output_size))
@@ -32,18 +32,17 @@ class TwoLayerNN:
         # 初始化超参数
         self.l2 = l2                 # L2正则化强度
         self.lrate = lrate           # 学习率
-        self.lr_decay = lr_decay     # 学习率衰减系数
         # 定义一个字典用于保存模型的loss和accuracy信息
         self.info = {'trainLoss':[],'trainAcc':[],'validLoss':[],'validAcc':[]}
 
     def forward(self,x):
-        self.z1 = np.dot(x, self.W1) + self.b1
+        self.z1 = np.dot(x, self.W1) + self.b1    # 将行向量b1加到矩阵的每一行
         self.a1 = ReLU(self.z1)    
-        self.z2 = np.dot(self.a1, self.W2) + self.b2
+        self.z2 = np.dot(self.a1, self.W2) + self.b2     # 将行向量b2加到矩阵的每一行
         self.a2 = softmax(self.z2) 
 
     def backward(self,x,y):
-        dz2 = (self.a2 - y) / y.shape[0]   # softmax with 交叉熵
+        dz2 = (self.a2 - y) / y.shape[0]      # because we use softmax with cross_entropy
         dW2 = np.dot(self.a1.T,dz2) + self.l2 * self.W2
         db2 = np.sum(dz2,axis = 0)
         dz1 = np.dot(dz2,self.W2.T) * ReLU_grad(self.z1)
@@ -70,28 +69,28 @@ class TwoLayerNN:
     def plot_loss_acc(self):
         # 绘制 loss 曲线
         plt.subplot(1,2,1)
-        plt.title('Loss Curve')  # 图片标题
-        plt.xlabel('epoch')  # x轴变量名称
-        plt.ylabel('Loss')  # y轴变量名称
-        plt.plot(self.info['trainLoss'], label="$train$")  # 逐点画出loss值并连线
+        plt.title('Loss Curve') 
+        plt.xlabel('epoch') 
+        plt.ylabel('Loss') 
+        plt.plot(self.info['trainLoss'], label="train")  
         if self.isvaliding:
-            plt.plot(self.info['validLoss'], label="$valid$")  # 逐点画出loss值并连线
-        plt.legend()  # 画出曲线图标
+            plt.plot(self.info['validLoss'], label="valid") 
+        plt.legend()  
 
         # 绘制 Accuracy 曲线
         plt.subplot(1,2,2)
-        plt.title('Accuracy Curve')  # 图片标题
-        plt.xlabel('epoch')  # x轴变量名称
-        plt.ylabel('Acc')  # y轴变量名称
-        plt.plot(self.info['trainAcc'], label="$train$")  # 逐点画出train_acc值并连线
+        plt.title('Accuracy Curve') 
+        plt.xlabel('epoch')  
+        plt.ylabel('Acc') 
+        plt.plot(self.info['trainAcc'], label="train")
         if self.isvaliding:
-            plt.plot(self.info['validAcc'], label="$valid$")  # 逐点画出valid_acc值并连线
+            plt.plot(self.info['validAcc'], label="valid") 
         plt.legend()
         plt.show()
 
     
     def train_model(self,train_set,valid_set=None,print_result=False,batch_size=128,epoch_num=40):
-        self.isvaliding = valid_set is not None
+        self.isvaliding = valid_set is not None     # 为了区分本次训练是在“查找参数”还是“训练最终的模型”
         x_train,y_train = train_set
         train_num = x_train.shape[0]
         batch_num = train_num // batch_size
@@ -105,11 +104,11 @@ class TwoLayerNN:
             
             # 学习率增减策略
             if epoch == 0:
-                ascend_rate = (0.7/self.lrate)**0.1
+                ascend_rate = (0.7/self.lrate)**0.1      # 0.7 是调试后的结果
             if epoch < 10:
-                self.lrate *= ascend_rate
+                self.lrate *= ascend_rate              # 前10个epoch，lrate以指数增长至 lrate=0.7
             else:
-                self.lrate *= self.lr_decay
+                self.lrate *= 0.9                            # 后30个epoch，lrate以0.9的速率指数衰减
 
             # 分别计算train set, valid set上的loss & accuracy
             self.forward(x_train)
@@ -134,7 +133,7 @@ class TwoLayerNN:
                         'valid acc:',f'{100*valid_acc:.2f}%'
                     )
         
-            else:                # not in parameter-search process   找到合适参数后，将60000个样本全部用于训练，故没有验证集
+            else:                # during final-train process   找到合适参数后，将60000个样本全部用于训练，故没有验证集
                 if print_result:
                     print(
                         'Epoch ',f'{epoch+1}/{epoch_num}',

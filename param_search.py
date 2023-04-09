@@ -28,27 +28,6 @@ def lr_search(search_list):
     print('best learning_rate:', best_lr)
 
 
-def lrdecay_search(search_list):
-    '''
-    lr decay: 0.9 accuracy: 0.9758333333333333
-    lr decay: 0.8 accuracy: 0.9684166666666667
-    lr decay: 0.7 accuracy: 0.9748333333333333
-    best lr_decay: 0.9
-    '''
-    best_acc = 0
-    for lrdecay in search_list:
-        network = TwoLayerNN(
-            learning_rate = 0.005,
-            lr_decay = lrdecay,
-            hidden_size=150,
-            L2_reg = 1e-4)
-        network.train_model(train_set, valid_set)
-        acc = max(network.info['validAcc'])
-        print('lr decay:',lrdecay,'accuracy:',acc)
-        if acc > best_acc:
-            best_acc = acc
-            best_lrdecay = lrdecay
-    print('best lr_decay:', best_lrdecay)
     
 def hdsize_search(search_list):
     '''
@@ -99,14 +78,12 @@ def l2reg_search(search_list):
 
 if __name__ == '__main__':
     # lr_search([0.001,0.005,0.01,0.05,0.1])
-    # lrdecay_search([0.9,0.8,0.7])
     # hdsize_search([50,100,150,200])
     # l2reg_search([0.01,0.001,1e-4,1e-5])
     
     # 最终选择如下参数
     network = TwoLayerNN(
         learning_rate = 0.005,
-        lr_decay = 0.9,
         hidden_size=150,
         L2_reg = 1e-4)
     network.train_model(train_set, valid_set,print_result=True)

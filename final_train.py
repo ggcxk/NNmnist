@@ -6,7 +6,6 @@ import pickle
 def train_final_model():
     network = TwoLayerNN(
         lrate = 0.005,
-        lr_decay = 0.9,
         hidden_size=150,
         l2 = 1e-4)
     network.train_model(

@@ -9,7 +9,7 @@ def change_onehot(y):
 
 def load_data():
     # 读取数据并预处理成neural network接受的格式
-    path = './rawdata/mnist.npz' #放置mnist.py的目录。注意斜杠
+    path = './rawdata/mnist.npz'
     with np.load(path) as f:
         x_train, y_train = f['x_train'], f['y_train']
         x_test, y_test = f['x_test'], f['y_test']
@@ -21,8 +21,8 @@ def load_data():
     return x_train, x_test, y_train, y_test
 
 def train_valid_split(x,y,valid_ratio):  #valid_ratio  验证集的比例
-    shuffle_index = np.random.permutation(len(x))  #将随机生成len(X)个元素的下标即0-149随机生成，并保存在数据中
-    valid_size = int(len(x)*valid_ratio)   # 算出个数
+    shuffle_index = np.random.permutation(len(x)) 
+    valid_size = int(len(x)*valid_ratio) 
     valid_index = shuffle_index[:valid_size] 
     train_index = shuffle_index[valid_size:] 
     train_set = (x[train_index],y[train_index])
