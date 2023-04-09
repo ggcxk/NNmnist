@@ -52,11 +52,11 @@
     * 3、运行final_train.py文件，以选定的超参数训练并保存最终的模型，同时绘制出loss和accuracy变化。（final_train_result.png对应了某次训练的结果）
 
 * 测试过程：
-    * 确保模型文件放置在"./model/"路径下，运行final_test.py文件，可输出准确率
+    * 确保模型文件放置在当前路径下，运行final_test.py文件，可输出准确率
 
 ## 其他注意事项：
 
 * 如果直接运行param_search.py文件，将会以选定的超参数进行训练，并输出loss和accuracy，但不会保存模型。（loss_acc.png对应了某次训练的结果）
-* 确保模型文件放置在"./model/"路径下，运行plotW1W2.py，可绘制网络参数的图片
+* 确保模型文件放置在当前路径下，运行plotW1W2.py，可绘制网络参数的图片
 * loss和accuracy的绘制函数位于mymodel.py的TwoLayerNN类中
 
