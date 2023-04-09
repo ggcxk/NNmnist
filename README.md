@@ -35,9 +35,17 @@ pics文件夹保存了6张图片，其中
 
 ## 训练和测试过程
 
+将整个数据集分为训练集、验证集和测试集
+
+   在训练集上训练、在验证集上验证，不断调整超参数最终选定一组表现良好的超参数。
+   
+   将训练集和验证集合在一起，以这组超参数训练一个最终的模型并保存。
+   
+   导入模型，在测试集上输出分类精度。
+
 * 训练过程:
     * 在mymodel.py中编辑好TwoLayerNN类和train_model函数的相关细节（比如设定好batch_size,epoch_num）
-    * 在param_search.py中分别执行lr_search,hdsize_search,l2reg_search这三个函数进行参数查找，选定一组表现良好的超参数
+    * 在param_search.py中依次执行lr_search,hdsize_search,l2reg_search这三个函数进行参数查找，选定一组表现良好的超参数
     * 运行final_train.py文件，以选定的超参数训练并保存最终的模型，同时绘制出loss和accuracy变化。（final_train_result.png对应了某次训练的结果）
 
 * 测试过程：
@@ -46,4 +54,6 @@ pics文件夹保存了6张图片，其中
 ## 其他注意事项：
 
 * 如果直接运行param_search.py文件，将会以选定的超参数进行训练，并输出loss和accuracy，但不会保存模型。（loss_acc.png对应了某次训练的结果）
+* 确保模型文件放置在"./model/"路径下，运行plotW1W2.py，可绘制网络参数的图片
+* loss和accuracy的绘制函数位于mymodel.py的TwoLayerNN类中
 
