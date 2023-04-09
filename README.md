@@ -36,12 +36,12 @@ pics文件夹保存了6张图片，其中
 ## 训练和测试过程
 
 * 训练过程:
-   在mymodel.py中编辑好TwoLayerNN类和train_model函数的相关细节（比如设定好batch_size,epoch_num）
-   在param_search.py中分别执行lr_search,hdsize_search,l2reg_search这三个函数进行参数查找，选定一组表现良好的超参数
-   运行final_train.py文件，以选定的超参数训练并保存最终的模型，同时绘制出loss和accuracy变化。（final_train_result.png对应了某次训练的结果）
+    * 在mymodel.py中编辑好TwoLayerNN类和train_model函数的相关细节（比如设定好batch_size,epoch_num）
+    * 在param_search.py中分别执行lr_search,hdsize_search,l2reg_search这三个函数进行参数查找，选定一组表现良好的超参数
+    * 运行final_train.py文件，以选定的超参数训练并保存最终的模型，同时绘制出loss和accuracy变化。（final_train_result.png对应了某次训练的结果）
 
 * 测试过程：
-   确保模型文件放置在"./model/"路径下，运行final_test.py文件，可输出准确率
+    * 确保模型文件放置在"./model/"路径下，运行final_test.py文件，可输出准确率
 
 ## 其他注意事项：
 
