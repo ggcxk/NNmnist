@@ -13,8 +13,8 @@ def test(filename):  # 评估模型的样本外效果
 
 if __name__ == '__main__':
     # test the final model
-    filepath = './model/mnist_model9819.pkl'
-    acc = test(filepath)
+    filename = 'mnist_model9819.pkl'
+    acc = test(filename)
     print("Test Accuracy:", 100 * acc, "%")
     
 

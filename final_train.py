@@ -23,6 +23,6 @@ def save_model(network,filename):  # network: class defined below
 if __name__ == '__main__':
     # train and save the final model
     model = train_final_model()
-    filepath = './model/mnist_model9819.pkl'
-    save_model(model,filepath)
+    filename = 'mnist_model9819.pkl'
+    save_model(model,filename)
     model.plot_loss_acc()   # plot the loss and accuracy

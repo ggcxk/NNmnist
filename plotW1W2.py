@@ -18,8 +18,8 @@ def plot_para(W, height,width, plot_size):
 
 
 if __name__=='__main__':
-    filepath = './model/mnist_model9819.pkl'
-    with open(filepath, "br") as fh:
+    filename = 'mnist_model9819.pkl'
+    with open(filename, "br") as fh:
         model = pickle.load(fh)
     plot_para(model.W1, 28, 28, (10, 15))   # plot W1 (784 x hidden_size)
     plot_para(np.dot(model.W1, model.W2), 28, 28, (2, 5))   # plot W1·W2   (784 x 10)

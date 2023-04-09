@@ -15,9 +15,9 @@ def lr_search(search_list):
     best_acc = 0
     for lr in search_list:
         network = TwoLayerNN(
-            learning_rate = lr,
+            lrate = lr,
             hidden_size=150,
-            L2_reg = 1e-4)
+            l2 = 1e-4)
         network.train_model(train_set, valid_set)
         acc = max(network.info['validAcc'])
         print('lr:',lr,'accuracy:',acc)
@@ -39,9 +39,9 @@ def hdsize_search(search_list):
     best_acc = 0
     for hdsize in search_list:
         network = TwoLayerNN(
-            learning_rate = 0.005,
+            lrate = 0.005,
             hidden_size=hdsize,
-            L2_reg = 1e-4)
+            l2 = 1e-4)
         network.train_model(train_set, valid_set)
         acc = max(network.info['validAcc'])
         print('hidden size:',hdsize,'accuracy:',acc)
@@ -61,9 +61,9 @@ def l2reg_search(search_list):
     best_acc = 0
     for l2reg in search_list:
         network = TwoLayerNN(
-            learning_rate = 0.005,
+            lrate = 0.005,
             hidden_size=150,
-            L2_reg = l2reg)
+            l2 = l2reg)
         network.train_model(train_set, valid_set)
         acc = max(network.info['validAcc'])
         print('l2 reg:',l2reg,'accuracy:',acc)
@@ -80,9 +80,9 @@ if __name__ == '__main__':
     
     # 最终选择如下参数
     network = TwoLayerNN(
-        learning_rate = 0.005,
+        lrate = 0.005,
         hidden_size=150,
-        L2_reg = 1e-4)
+        l2 = 1e-4)
     network.train_model(train_set, valid_set,print_result=True)
     network.plot_loss_acc()
 
