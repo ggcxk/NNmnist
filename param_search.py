@@ -16,7 +16,6 @@ def lr_search(search_list):
     for lr in search_list:
         network = TwoLayerNN(
             learning_rate = lr,
-            lr_decay = 0.9,
             hidden_size=150,
             L2_reg = 1e-4)
         network.train_model(train_set, valid_set)
@@ -41,7 +40,6 @@ def hdsize_search(search_list):
     for hdsize in search_list:
         network = TwoLayerNN(
             learning_rate = 0.005,
-            lr_decay = 0.9,
             hidden_size=hdsize,
             L2_reg = 1e-4)
         network.train_model(train_set, valid_set)
@@ -50,7 +48,7 @@ def hdsize_search(search_list):
         if acc > best_acc:
             best_acc = acc
             best_hd = hdsize
-    print('best hidden size:', best_hd)
+    print('best hidden size:', best_hd)     # 200与150相比，accuracy的提升有限，故还是选择hidden_size=150
 
 def l2reg_search(search_list):
     '''
@@ -64,7 +62,6 @@ def l2reg_search(search_list):
     for l2reg in search_list:
         network = TwoLayerNN(
             learning_rate = 0.005,
-            lr_decay = 0.9,
             hidden_size=150,
             L2_reg = l2reg)
         network.train_model(train_set, valid_set)
